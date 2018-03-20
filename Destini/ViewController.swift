@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  Destini
 //
-//  Created by Philipp Muellauer on 01/09/2015.
-//  Copyright (c) 2015 London App Brewery. All rights reserved.
+//  Created by Armin Spahic on 10/01/2018.
+//  Copyright © 2018 Armin Spahic. All rights reserved.
 //
 
 import UIKit
@@ -34,23 +34,65 @@ class ViewController: UIViewController {
     @IBOutlet weak var bottomButton: UIButton!      // Has TAG = 2
     @IBOutlet weak var storyTextView: UILabel!
     
+    @IBOutlet weak var restartButton: UIButton!
     // TODO Step 5: Initialise instance variables here
-    
+   var currentText = 1
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        startOver()
         
         
         // TODO Step 3: Set the text for the storyTextView, topButton, bottomButton, and to T1_Story, T1_Ans1, and T1_Ans2
         
     }
-
+   
+   
     
     // User presses one of the buttons
     @IBAction func buttonPressed(_ sender: UIButton) {
-    
+        
+        if (sender.tag == 1 && currentText == 1) || (sender.tag == 1 && currentText == 2 ) {
+            storyTextView.text = story3
+            topButton.setTitle(answer3a, for: .normal)
+            bottomButton.setTitle(answer3b, for: .normal)
+            currentText = 3
+         
+            
+        } else if sender.tag == 2 && currentText == 1{
+            storyTextView.text = story2
+            topButton.setTitle(answer2a, for: .normal)
+            bottomButton.setTitle(answer2b, for: .normal)
+            currentText = 2
+            
+            
+        } else if sender.tag == 1 && currentText == 3 {
+            storyTextView.text = story6
+            topButton.isHidden = true
+            bottomButton.isHidden = true
+            currentText = 6
+            
+            
+        } else if sender.tag == 2 && currentText == 3 {
+            storyTextView.text = story5
+            topButton.isHidden = true
+            bottomButton.isHidden = true
+            currentText = 5
+            
+        
+            
+        } else if sender.tag == 2 && currentText == 2{
+            storyTextView.text = story4
+            topButton.isHidden = true
+            bottomButton.isHidden = true
+            currentText = 4
+            
+        }
+        if currentText == 5 || currentText == 4 || currentText == 6 {
+            restartButton.isHidden = false
+        }
         // TODO Step 4: Write an IF-Statement to update the views
                 
         // TODO Step 6: Modify the IF-Statement to complete the story
@@ -58,7 +100,20 @@ class ViewController: UIViewController {
     
     }
     
-
+    @IBAction func restartBtn(_ sender: UIButton) {
+        startOver()
+        
+        
+    }
+    func startOver() {
+        currentText = 1
+        storyTextView.text = story1
+        topButton.setTitle(answer1a, for: .normal)
+        bottomButton.setTitle(answer1b, for: .normal)
+        topButton.isHidden = false
+        bottomButton.isHidden = false
+        restartButton.isHidden = true
+    }
 
 
 }
